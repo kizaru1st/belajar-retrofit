@@ -28,28 +28,21 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         cekLogin()
     }
-
     fun cekLogin() {
-
         editEmail = findViewById(R.id.editEmail)
         editPassword = findViewById(R.id.editPassword)
         buttonLogin = findViewById(R.id.buttonLogin)
-        var username = editEmail.getText().toString()
-        var password = editPassword.getText().toString()
-
         buttonLogin.setOnClickListener(View.OnClickListener {
             val API_BASE_URL = "http://ptb-api.husnilkamil.my.id/api/"
-
+            var username = editEmail.getText().toString()
+            var password = editPassword.getText().toString()
             val retrofit = Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpClient.Builder().build())
                 .build()
-
             val client = retrofit.create(Login::class.java)
-
             val call = client.login(username, password)
-
             call!!.enqueue(object : Callback<LoginResponse?> {
                 override fun onResponse(
                     call: Call<LoginResponse?>,
