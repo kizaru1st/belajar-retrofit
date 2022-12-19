@@ -4,14 +4,17 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.belajar_retrofit.datamodels.LogoutResponse
-import com.example.belajar_retrofit.retrofit.Api
-import com.example.belajar_retrofit.retrofit.RetrofitClient
+import com.example.belajar_retrofit.retrofit.Login
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,26 +23,33 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = applicationContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE) ?: return
         val token = sharedPref.getString("TOKEN", "")
+        val API_BASE_URL = "http://ptb-api.husnilkamil.my.id/api/"
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient.Builder().build())
+            .build()
+        val client = retrofit.create(Login::class.java)
+        val call = client.logout("Bearer $token")
 
         btnLogout.setOnClickListener {
-            val retrofitClient = RetrofitClient.create()
-            val callData = retrofitClient.logout("Bearer $token")
-            callData.enqueue(object : Callback<LogoutResponse> {
+            val client = retrofit.create(Login::class.java)
+            val call = client.logout("Bearer $token")
+            call!!.enqueue(object : Callback<LogoutResponse?> {
                 override fun onResponse(
-                    call: Call<LogoutResponse>,
-                    response: Response<LogoutResponse>
+                    call: Call<LogoutResponse?>,
+                    response: Response<LogoutResponse?>
                 ) {
-//                    Log.d("logout : ", response.body().toString())
+                    Log.d("logout : ", response.body().toString())
                     with(sharedPref.edit()) {
                         clear()
                         apply()
                     }
-                    intent = Intent(this@MainActivity, Api::class.java)
+                    intent = Intent(this@MainActivity, Login::class.java)
                     startActivity(intent)
                     finish()
                 }
-
-                override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
+                override fun onFailure(call: Call<LogoutResponse?>, t: Throwable) {
                     Toast.makeText(this@MainActivity, "Gaga", Toast.LENGTH_SHORT).show()
                 }
             })

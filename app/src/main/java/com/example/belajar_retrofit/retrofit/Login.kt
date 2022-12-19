@@ -8,13 +8,15 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
 
-interface Api {
+interface Login {
     @FormUrlEncoded
     @POST("login")
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
     ): Call<LoginResponse?>?
-    @POST("api/logout")
-    fun logout(@Header("Authorization") token: String) : Call<LogoutResponse>
+    @POST("logout")
+    fun logout(
+        @Header("Authorization") token: String
+    ) : Call<LogoutResponse>
 }

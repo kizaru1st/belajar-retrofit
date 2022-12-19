@@ -7,7 +7,7 @@ import android.os.Bundle
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
-import com.example.belajar_retrofit.retrofit.Api
+import com.example.belajar_retrofit.retrofit.Login
 import com.example.belajar_retrofit.datamodels.LoginResponse
 import android.widget.Toast
 import android.content.Intent
@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpClient.Builder().build())
                 .build()
-            val client = retrofit.create(Api::class.java)
+            val client = retrofit.create(Login::class.java)
             val call = client.login(username, password)
             call!!.enqueue(object : Callback<LoginResponse?> {
                 override fun onResponse(
