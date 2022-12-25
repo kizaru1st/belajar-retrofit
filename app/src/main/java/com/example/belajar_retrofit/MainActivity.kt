@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.belajar_retrofit.datamodels.GetProfileResponse
 import com.example.belajar_retrofit.datamodels.LogoutResponse
 import com.example.belajar_retrofit.retrofit.Login
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,8 +30,23 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient.Builder().build())
             .build()
-        val client = retrofit.create(Login::class.java)
-        val call = client.logout("Bearer $token")
+        val clientGetProfile = retrofit.create(Login::class.java)
+        val callGetProfile = clientGetProfile.profile("Bearer $token")
+        callGetProfile!!.enqueue(object : Callback<GetProfileResponse?> {
+            override fun onResponse(
+                call: Call<GetProfileResponse?>,
+                response: Response<GetProfileResponse?>
+            ) {
+                val respon = response.body()
+                val getNama = respon?.name
+                tvNama.setText(getNama)
+            }
+            override fun onFailure(call: Call<GetProfileResponse?>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Gaga", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
 
         btnLogout.setOnClickListener {
             val client = retrofit.create(Login::class.java)

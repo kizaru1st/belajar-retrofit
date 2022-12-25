@@ -1,12 +1,11 @@
 package com.example.belajar_retrofit.retrofit
 
-import retrofit2.http.POST
+import com.example.belajar_retrofit.datamodels.GetProfileResponse
 import com.example.belajar_retrofit.datamodels.LoginResponse
 import com.example.belajar_retrofit.datamodels.LogoutResponse
+import com.example.belajar_retrofit.datamodels.User
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Header
+import retrofit2.http.*
 
 interface Login {
     @FormUrlEncoded
@@ -19,4 +18,6 @@ interface Login {
     fun logout(
         @Header("Authorization") token: String
     ) : Call<LogoutResponse>
+    @GET("/api/me")
+    fun profile(@Header("Authorization") token:String):Call<GetProfileResponse>
 }
