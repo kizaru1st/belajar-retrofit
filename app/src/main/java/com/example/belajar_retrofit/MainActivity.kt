@@ -46,7 +46,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
+        btnSelesaiKp.setOnClickListener {
+            intent = Intent(this@MainActivity, LaporSelesaiKpActivity::class.java)
+            startActivity(intent)
+        }
 
         btnLogout.setOnClickListener {
             val client = retrofit.create(Login::class.java)
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                         clear()
                         apply()
                     }
-                    intent = Intent(this@MainActivity, Login::class.java)
+                    intent = Intent(this@MainActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
