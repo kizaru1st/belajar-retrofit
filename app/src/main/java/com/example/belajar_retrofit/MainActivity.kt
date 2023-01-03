@@ -8,7 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.belajar_retrofit.datamodels.GetProfileResponse
 import com.example.belajar_retrofit.datamodels.LogoutResponse
-import com.example.belajar_retrofit.retrofit.Login
+import com.example.belajar_retrofit.retrofit.Api
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient.Builder().build())
             .build()
-        val clientGetProfile = retrofit.create(Login::class.java)
+        val clientGetProfile = retrofit.create(Api::class.java)
         val callGetProfile = clientGetProfile.profile("Bearer $token")
         callGetProfile!!.enqueue(object : Callback<GetProfileResponse?> {
             override fun onResponse(
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogout.setOnClickListener {
-            val client = retrofit.create(Login::class.java)
+            val client = retrofit.create(Api::class.java)
             val call = client.logout("Bearer $token")
             call!!.enqueue(object : Callback<LogoutResponse?> {
                 override fun onResponse(
