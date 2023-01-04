@@ -40,8 +40,8 @@ class LogbookActivity : AppCompatActivity() {
                 if (response.body() != null){
                     response.body()?.let{list.addAll(list)}
                     val listLogbook = response.body()
-                    val awal:List<LogbooksItem> = listLogbook!!.logbooks
-                    val adapter = AdaptorLogbookActivity(awal)
+                    val awal:List<LogbooksItem?>? = listLogbook!!.logbooks
+                    val adapter = AdaptorLogbookActivity(awal as List<LogbooksItem>)
                     rvLogbook.adapter = adapter
                     val sharePreference = getSharedPreferences("simpan", Context.MODE_PRIVATE)
                     val editor = sharePreference.edit()

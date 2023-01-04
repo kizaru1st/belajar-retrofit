@@ -1,12 +1,15 @@
 //package com.example.belajar_retrofit;
 //
 //import androidx.appcompat.app.AppCompatActivity;
+//import androidx.recyclerview.widget.LinearLayoutManager;
+//import androidx.recyclerview.widget.RecyclerView;
 //
 //import android.content.Context;
 //import android.content.SharedPreferences;
 //import android.os.Bundle;
 //
 //import com.example.belajar_retrofit.datamodels.Api;
+//import com.example.belajar_retrofit.datamodels.ListLogbookResponse;
 //import com.example.belajar_retrofit.datamodels.LogbooksItem;
 //
 //import java.util.List;
@@ -20,6 +23,9 @@
 //
 //public class ListLogbookActivity extends AppCompatActivity {
 //
+//    private RecyclerView rvListLogbook;
+//    private ListLogbookAdapter adapter;
+//
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -27,6 +33,12 @@
 //
 //        SharedPreferences sharedPref = getSharedPreferences("prefs", Context.MODE_PRIVATE);
 //        String token = sharedPref.getString("TOKEN", "");
+//
+//        rvListLogbook = findViewById(R.id.rvLogbook);
+//        rvListLogbook.setLayoutManager(new LinearLayoutManager(this));
+//
+//        adapter = new ListLogbookAdapter();
+//        rvListLogbook.setAdapter(adapter);
 //
 //        String API_BASE_URL = "http://ptb-api.husnilkamil.my.id/api/";
 //        Retrofit retrofit = new Retrofit.Builder()

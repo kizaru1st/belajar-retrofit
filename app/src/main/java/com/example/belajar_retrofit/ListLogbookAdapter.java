@@ -3,6 +3,7 @@
 //import android.view.LayoutInflater;
 //import android.view.ViewGroup;
 //import android.view.View;
+//import android.widget.TextView;
 //
 //import androidx.annotation.NonNull;
 //import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@
 //    @Override
 //    public void onBindViewHolder(@NonNull ListLogbookAdapter.ViewHolder holder, int position) {
 //        LogbooksItem logbooksItem = itemList.get(position);
+//        holder.tvKegiatan.setText(logbooksItem.getActivities());
 //    }
 //
 //    @Override
@@ -38,8 +40,10 @@
 //    }
 //
 //    public class ViewHolder extends RecyclerView.ViewHolder {
+//        public TextView tvKegiatan;
 //        public ViewHolder(@NonNull View itemView) {
 //            super(itemView);
+//            tvKegiatan = itemView.findViewById(R.id.tvKegiatan);
 //        }
 //    }
 //}

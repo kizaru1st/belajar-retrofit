@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.belajar_retrofit.R
-import com.example.belajar_retrofit.ListLogbookActivity
 import com.example.belajar_retrofit.datamodels.*
 import kotlinx.android.synthetic.main.activity_logbook.view.*
 import kotlinx.android.synthetic.main.item_story.view.*

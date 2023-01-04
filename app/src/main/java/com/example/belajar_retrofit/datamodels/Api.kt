@@ -23,4 +23,5 @@ interface Api {
     @GET("/api/my-internship/2/logbook")
     fun listlogbook(@Header("Authorization") token: String
     ):Call<LogbookResponse>
+
 }
