@@ -32,16 +32,18 @@ class LogbookActivity : AppCompatActivity() {
         val retro = Retro().getRetroClientInstance().create(Api::class.java)
         val sharePreference = getSharedPreferences("simpan", Context.MODE_PRIVATE)
         val token = "Bearer "+ sharePreference.getString("token", null)
-        retro.listlogbook(token).enqueue(object : Callback<com.example.belajar_retrofit.datamodels.LogbookResponse> {
+        retro.listLog(token).enqueue(object : Callback<com.example.belajar_retrofit.datamodels.LogbookResponse> {
             override fun onResponse(
                 call: Call<com.example.belajar_retrofit.datamodels.LogbookResponse>,
                 response: Response<com.example.belajar_retrofit.datamodels.LogbookResponse>
             ) {
                 if (response.body() != null){
                     response.body()?.let{list.addAll(list)}
-                    val listLogbook = response.body()
-                    val awal:List<LogbooksItem?>? = listLogbook!!.logbooks
-                    val adapter = AdaptorLogbookActivity(awal as List<LogbooksItem>)
+                    val listlogbook = response.body()
+                    val awal:List<LogbooksItem> = listlogbook!!.logbooks
+                    Log.d("Abdul", awal.toString())
+                    Log.d("ALIF", response.body().toString())
+                    val adapter = AdaptorLogbookActivity(awal)
                     rvLogbook.adapter = adapter
                     val sharePreference = getSharedPreferences("simpan", Context.MODE_PRIVATE)
                     val editor = sharePreference.edit()
@@ -60,13 +62,12 @@ class LogbookActivity : AppCompatActivity() {
                 toast.show()
             }
         })
-
     }
 
 //    fun itemGetClicked(item: LogbooksItem){
-//        Intent(this, DetailLogBook::class.java).also {
+//        Intent(this, DetailLogBookActivity::class.java).also {
 //            val id = item.id
-//            val progress = item.progress
+//            val progress = item.activities
 //            it.putExtra("EXRA_ID", id)
 //            startActivity(it)
 //        }

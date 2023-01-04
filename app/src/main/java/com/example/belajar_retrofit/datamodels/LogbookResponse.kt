@@ -32,7 +32,7 @@ data class LogbookResponse(
 	val certificate: Any? = null,
 
 	@field:SerializedName("logbooks")
-	val logbooks: List<LogbooksItem?>? = null,
+	val logbooks: List<LogbooksItem>,
 
 	@field:SerializedName("student_id")
 	val studentId: Int? = null,
