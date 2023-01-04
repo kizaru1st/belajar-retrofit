@@ -1,9 +1,6 @@
-package com.example.belajar_retrofit.retrofit
+package com.example.belajar_retrofit.datamodels
 
-import com.example.belajar_retrofit.datamodels.GetProfileResponse
-import com.example.belajar_retrofit.datamodels.ListLogbookResponse
-import com.example.belajar_retrofit.datamodels.LoginResponse
-import com.example.belajar_retrofit.datamodels.LogoutResponse
+import com.example.belajar_retrofit.datamodels.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,6 +20,7 @@ interface Api {
     @GET("me")
     fun profile(@Header("Authorization") token:String):Call<GetProfileResponse>
 
-    @GET("theses/309/logbooks")
-    fun listLogbook(@Header("Authorization") token:String):Call<ListLogbookResponse>
+    @GET("/api/my-internship/2/logbook")
+    fun listlogbook(@Header("Authorization") token: String
+    ):Call<LogbookResponse>
 }

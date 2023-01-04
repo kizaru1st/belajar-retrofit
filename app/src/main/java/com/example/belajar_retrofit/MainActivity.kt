@@ -8,7 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.belajar_retrofit.datamodels.GetProfileResponse
 import com.example.belajar_retrofit.datamodels.LogoutResponse
-import com.example.belajar_retrofit.retrofit.Api
+import com.example.belajar_retrofit.datamodels.Api
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         btnSelesaiKp.setOnClickListener {
-            intent = Intent(this@MainActivity, LaporSelesaiKpActivity::class.java)
+            intent = Intent(this@MainActivity, LogbookActivity::class.java)
             startActivity(intent)
         }
 
