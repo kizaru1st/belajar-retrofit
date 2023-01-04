@@ -20,8 +20,9 @@ interface Api {
     @GET("me")
     fun profile(@Header("Authorization") token:String):Call<GetProfileResponse>
 
-    @GET("/api/my-internship/2/logbook")
-    fun listLog(@Header("Authorization") token: String
+    @GET("/api/my-internship/{id}/logbook")
+    fun listlogbook(@Header("Authorization") token: String,
+                    @Path("id") id:Int
     ):Call<LogbookResponse>
 
 }

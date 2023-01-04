@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         btnSelesaiKp.setOnClickListener {
-            intent = Intent(this@MainActivity, LogbookActivity::class.java)
+            intent = Intent(this@MainActivity, LogActivity::class.java)
             startActivity(intent)
         }
 
