@@ -31,9 +31,13 @@ class LogActivity : AppCompatActivity() {
         val adapter: LogAdapter = LogAdapter()
 
 
-        val sharedPref = applicationContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE) ?: return
-        val token = sharedPref.getString("TOKEN", "")
-        val id = sharedPref.getInt("id", 5)
+        val sharedToken = applicationContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE) ?: return
+        val token = sharedToken.getString("TOKEN", "")
+        val sharedPref = getSharedPreferences("mahasiswapref", Context.MODE_PRIVATE) ?: return
+        val Nama = sharedPref.getString("NAMA", null)
+        val Nim = sharedPref.getString("NIM", null)
+        val Tempat = sharedPref.getString("TEMPAT", null)
+        val id = sharedToken.getInt("ID", 5)
 
         val data = ArrayList<LogbooksItem>()
         recyclerView = findViewById(R.id.rvLogbook)
@@ -49,9 +53,6 @@ class LogActivity : AppCompatActivity() {
             ) {
                 val respon = response.body()
                 if (respon != null) {
-                    val text = "NT!"
-                    val duration = Toast.LENGTH_SHORT
-                    val toast = Toast.makeText(applicationContext, text, duration)
                     val list: List<LogbooksItem> = respon.logbooks as List<LogbooksItem>
                     adapter.setlistLogbook(list)
                     Log.d("list-book-debug", list.toString())
