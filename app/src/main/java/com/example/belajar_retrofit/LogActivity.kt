@@ -33,10 +33,7 @@ class LogActivity : AppCompatActivity() {
 
         val sharedToken = applicationContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE) ?: return
         val token = sharedToken.getString("TOKEN", "")
-        val sharedPref = getSharedPreferences("mahasiswapref", Context.MODE_PRIVATE) ?: return
-        val Nama = sharedPref.getString("NAMA", null)
-        val Nim = sharedPref.getString("NIM", null)
-        val Tempat = sharedPref.getString("TEMPAT", null)
+        val sharedPref = getSharedPreferences("mar", Context.MODE_PRIVATE) ?: return
         val id = sharedToken.getInt("ID", 5)
 
         val data = ArrayList<LogbooksItem>()
@@ -59,6 +56,21 @@ class LogActivity : AppCompatActivity() {
                 }
                 Log.d("list-book-debug", respon?.logbooks?.size.toString())
                 Log.d("list-book-debug", "respon : " + respon?.logbooks.toString())
+
+                adapter.setOnClickListener(object : LogAdapter.onClickListener{
+                    override fun onItemClick(position: Int) {
+                        val position = respon?.logbooks?.get(position)
+                        val sharedPref = getSharedPreferences("logbookpref", MODE_PRIVATE)?:return
+                        with(sharedPref.edit()){
+                            putString("id_logbook",position?.id.toString())
+                            apply()
+                        }
+                        Log.d("Detail-logbook",position.toString())
+                        val intent = Intent(this@LogActivity,DetailLogBookActivity::class.java)
+//
+                        startActivity(intent)
+                    }
+                })
             }
 
             override fun onFailure(call: Call<LogbookResponse>, t: Throwable) {
@@ -72,12 +84,12 @@ class LogActivity : AppCompatActivity() {
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-        adapter.setOnItemClickListener(object : LogAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                val intent = Intent(this@LogActivity,DetailLogBookActivity::class.java)
-                startActivity(intent)
-            }
-        })
+//        adapter.setOnClickListener(object : LogAdapter.onClickListener{
+//            override fun onItemClick(position: Int) {
+//                val intent = Intent(this@LogActivity,DetailLogBookActivity::class.java)
+//                startActivity(intent)
+//            }
+//        })
     }
 
 }

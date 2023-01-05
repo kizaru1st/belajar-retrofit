@@ -25,4 +25,9 @@ interface Api {
                     @Path("id") id:Int
     ):Call<LogbookResponse>
 
+    @GET("/api/my-internship/{id}/logbook/{id_logbook}")
+    fun detailLogbookMaha(@Header("Authorization") token: String,
+                          @Path("id") id: Int,
+                          @Path("id_logbook") id_logbook: String?
+    ):Call<DetailLogBookResponse>
 }

@@ -7,13 +7,14 @@ import com.example.belajar_retrofit.databinding.ItemStoryBinding
 import com.example.belajar_retrofit.datamodels.LogbooksItem
 
 class LogAdapter ()
-    : RecyclerView.Adapter<LogAdapter.LogbookViewHolder>(){
+    :RecyclerView.Adapter<LogAdapter.LogBookViewHolder>(){
 
-    private lateinit var logbokLister : onItemClickListener
-    interface onItemClickListener{
+    private lateinit var logbokLister : onClickListener
+
+    interface onClickListener{
         fun onItemClick(position: Int)
     }
-    fun setOnItemClickListener(listener: onItemClickListener){
+    fun setOnClickListener(listener: onClickListener){
         logbokLister = listener
     }
     var listLogbook : List<LogbooksItem> = ArrayList()
@@ -22,20 +23,19 @@ class LogAdapter ()
         this.listLogbook = listLogbook
         notifyDataSetChanged()
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogbookViewHolder {
-        return  LogbookViewHolder(ItemStoryBinding.inflate(
-            LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogBookViewHolder {
+        return  LogBookViewHolder(ItemStoryBinding.inflate(LayoutInflater.from(parent.context)
             , parent, false),logbokLister)
     }
 
-    override fun onBindViewHolder(holder: LogbookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LogBookViewHolder, position: Int) {
         val item : LogbooksItem = listLogbook.get(position)
         holder.itemBinding.tvKegiatan.text = item.activities
     }
     override fun getItemCount(): Int {
         return listLogbook.size
     }
-    inner class LogbookViewHolder(val itemBinding:ItemStoryBinding,listener: onItemClickListener):
+    inner class LogBookViewHolder(val itemBinding:ItemStoryBinding,listener: onClickListener):
         RecyclerView.ViewHolder(itemBinding.root) {
         init {
             itemView.setOnClickListener{
