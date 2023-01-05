@@ -33,7 +33,7 @@ class LogActivity : AppCompatActivity() {
 
         val sharedPref = applicationContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE) ?: return
         val token = sharedPref.getString("TOKEN", "")
-        val id = sharedPref.getInt("id", 2)
+        val id = sharedPref.getInt("id", 5)
 
         val data = ArrayList<LogbooksItem>()
         recyclerView = findViewById(R.id.rvLogbook)
@@ -71,11 +71,12 @@ class LogActivity : AppCompatActivity() {
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-//        adapter.setOnItemClickListener(object : LogBookAdapter.onItemClickListener{
-//            override fun onItemClick(position: Int) {
-//                val intent = Intent(this@DashboardKp,DetailLogbook::class.java)
-//                startActivity(intent)
-//            }
-//        })
+        adapter.setOnItemClickListener(object : LogAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(this@LogActivity,DetailLogBookActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
+
 }
