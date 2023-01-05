@@ -12,13 +12,13 @@ class Config {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()
-        return okHttpClient
+        return  okHttpClient
     }
     fun getRetrofit() : Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://ptb-api.husnilkamil.my.id")
+            .client(getInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient.Builder().build())
             .build()
     }
     fun getService() = getRetrofit().create(Api::class.java)
